@@ -1,5 +1,6 @@
 const translations = {
     fr: {
+        flag: 'fr', // Code pays pour le drapeau
         title: "Centre de Langues Étrangères",
         heroTitle: "FRANÇAIS ET ANGLAIS, COMME À LA MAISON !",
         heroSubtitle: "Cours pour adultes ou jeunes avec des professeurs natifs, certifiés et professionnels.",
@@ -15,6 +16,7 @@ const translations = {
         examPrep: "PRÉPAREZ AVEC NOUS VOS EXAMENS"
     },
     es: {
+        flag: 'es',
         title: "Centro de Idiomas Extranjeras",
         heroTitle: "¡FRANCÉS E INGLÉS COMO EN CASA!",
         heroSubtitle: "Clases por adultos o jóvenes con profesores nativos, diplomados y profesionales.",
@@ -30,6 +32,7 @@ const translations = {
         examPrep: "PREPARA TU"
     },
     en: {
+        flag: 'gb', // Drapeau UK
         title: "Foreign Language Center",
         heroTitle: "FRENCH AND ENGLISH, JUST LIKE HOME!",
         heroSubtitle: "Classes for adults or youth with native, certified, and professional teachers.",
@@ -45,6 +48,7 @@ const translations = {
         examPrep: "PREPARE WITH US FOR"
     },
     ru: {
+        flag: 'ru',
         title: "Центр Иностранных Языков",
         heroTitle: "ФРАНЦУЗСКИЙ И АНГЛИЙСКИЙ КАК ДОМА!",
         heroSubtitle: "Курсы для взрослых и детей с носителями языка.",
@@ -60,6 +64,7 @@ const translations = {
         examPrep: "ПОДГОТОВЬТЕСЬ К ЭКЗАМЕНАМ"
     },
     ar: {
+        flag: 'sa', // Drapeau Arabie Saoudite
         title: "مركز اللغات الأجنبية",
         heroTitle: "الفرنسية والإنجليزية، تماماً كما في المنزل!",
         heroSubtitle: "دروس للكبار والشباب مع مدرسين ناطقين أصليين ومحترفين.",
@@ -76,49 +81,49 @@ const translations = {
     }
 };
 
-// Fonction principale pour changer la langue
-function changeLanguage() {
-    const lang = document.getElementById('languageSelect').value;
+// Fonction pour changer la langue (modifiée pour accepter un argument)
+function changeLanguage(langCode) {
     const elements = document.querySelectorAll('[data-i18n]');
     
-    // Gestion RTL (Right to Left) pour l'arabe
-    if (lang === 'ar') {
+    // Sécurité : si la langue n'existe pas, on met Français
+    if (!translations[langCode]) langCode = 'fr';
+
+    // 1. Mise à jour du "Gros" drapeau affiché en haut
+    const flagImage = document.getElementById('currentFlag');
+    if (flagImage) {
+        // On récupère le code drapeau (ex: 'gb' pour anglais, 'sa' pour arabe)
+        const countryCode = translations[langCode].flag;
+        flagImage.src = `https://flagcdn.com/h40/${countryCode}.png`;
+    }
+
+    // 2. Gestion RTL (Arabe)
+    if (langCode === 'ar') {
         document.documentElement.setAttribute('dir', 'rtl');
     } else {
         document.documentElement.setAttribute('dir', 'ltr');
     }
 
+    // 3. Traduction des textes
     elements.forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            el.textContent = translations[lang][key];
+        if (translations[langCode] && translations[langCode][key]) {
+            el.textContent = translations[langCode][key];
         }
     });
 }
 
-// --- NOUVEAU : DÉTECTION AUTOMATIQUE ---
+// Détection automatique
 function autoDetectLanguage() {
-    // 1. Récupère la langue du navigateur (ex: "fr-FR", "en-US", "es-PE")
     const userLang = navigator.language || navigator.userLanguage;
-    
-    // 2. On ne garde que les 2 premières lettres (ex: "es-PE" devient "es")
     let langCode = userLang.substring(0, 2).toLowerCase();
-
-    // 3. Liste des langues que votre site supporte
-    const supportedLangs = Object.keys(translations); // ['fr', 'es', 'en', 'ru', 'ar']
-
-    // 4. Si la langue détectée n'est pas dans la liste, on met le français par défaut
+    
+    const supportedLangs = Object.keys(translations);
+    
     if (!supportedLangs.includes(langCode)) {
         langCode = 'fr'; 
     }
-
-    // 5. On met à jour le sélecteur et on applique la langue
-    const selectElement = document.getElementById('languageSelect');
-    if (selectElement) {
-        selectElement.value = langCode;
-        changeLanguage(); // Lance la traduction
-    }
+    
+    changeLanguage(langCode);
 }
 
-// Lance la détection une fois que la page est chargée
 document.addEventListener('DOMContentLoaded', autoDetectLanguage);
