@@ -183,21 +183,6 @@ header {
     padding: 20px;
 }
 
-@media (min-width: 769px) {
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-    }
-    .card:hover .card-header::after {
-        transform: rotate(180deg);
-    }
-    .card:hover .card-body {
-        max-height: 500px; 
-        opacity: 1;
-        padding: 20px;
-    }
-}
-
 .card-img { 
     height: 200px; 
     background-color: #ddd; 
@@ -293,3 +278,19 @@ html[dir="rtl"] .card-header::after { margin-left: 0; margin-right: 10px; }
     .hero h1 { font-size: 2rem; }
     .features { margin-top: 0; }
 }
+
+@media (min-width: 769px) {
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    .card:hover .card-header::after {
+        transform: rotate(180deg);
+    }
+    .card:hover .card-body {
+        max-height: 500px; 
+        opacity: 1;
+        padding: 20px;
+    }
+}
+
