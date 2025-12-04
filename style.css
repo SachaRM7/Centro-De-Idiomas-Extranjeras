@@ -69,20 +69,35 @@ header {
 }
 
 /* La liste déroulante (cachée par défaut) */
+/* La liste déroulante */
 .lang-dropdown {
-    display: none; /* Caché */
+    display: none;
     position: absolute;
     top: 100%;
-    right: 0; /* S'aligne à droite */
+    right: 0;
     background-color: var(--white);
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     border-radius: 10px;
     overflow: hidden;
-    margin-top: 10px;
+    
+    /* On garde l'espace visuel, mais on change la méthode */
+    margin-top: 15px; 
 }
 
-/* Afficher la liste quand on passe la souris sur le menu */
+/* --- LE PONT INVISIBLE (C'est ça qui répare le bug) --- */
+.lang-dropdown::before {
+    content: "";
+    position: absolute;
+    /* On place ce bloc invisible juste au-dessus du menu pour combler le trou */
+    top: -20px; 
+    left: 0;
+    width: 100%;
+    height: 20px; /* Doit être au moins aussi grand que le margin-top */
+    background: transparent; /* Invisible */
+}
+
+/* Le reste ne change pas */
 .lang-menu:hover .lang-dropdown {
     display: block;
 }
