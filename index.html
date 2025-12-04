@@ -17,14 +17,29 @@
             <i class="fas fa-graduation-cap"></i>
             <span data-i18n="title">Centre de Langues Étrangères</span>
         </div>
-        <div class="lang-selector">
-            <select id="languageSelect" onchange="changeLanguage()">
-                <option value="fr">Français</option>
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="ru">Русский</option>
-                <option value="ar">العربية</option>
-            </select>
+        <div class="lang-menu">
+            <div class="selected-lang">
+                <img id="currentFlag" src="https://flagcdn.com/h40/fr.png" alt="Langue" class="lang-flag">
+                <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+            </div>
+            
+            <div class="lang-dropdown">
+                <a href="#" class="lang-option" onclick="changeLanguage('fr'); return false;">
+                    <img src="https://flagcdn.com/h40/fr.png" class="lang-flag"> Français
+                </a>
+                <a href="#" class="lang-option" onclick="changeLanguage('es'); return false;">
+                    <img src="https://flagcdn.com/h40/es.png" class="lang-flag"> Español
+                </a>
+                <a href="#" class="lang-option" onclick="changeLanguage('en'); return false;">
+                    <img src="https://flagcdn.com/h40/gb.png" class="lang-flag"> English
+                </a>
+                <a href="#" class="lang-option" onclick="changeLanguage('ru'); return false;">
+                    <img src="https://flagcdn.com/h40/ru.png" class="lang-flag"> Русский
+                </a>
+                <a href="#" class="lang-option" onclick="changeLanguage('ar'); return false;">
+                    <img src="https://flagcdn.com/h40/sa.png" class="lang-flag"> العربية
+                </a>
+            </div>
         </div>
     </header>
 
