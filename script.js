@@ -76,6 +76,7 @@ const translations = {
     }
 };
 
+// Fonction principale pour changer la langue
 function changeLanguage() {
     const lang = document.getElementById('languageSelect').value;
     const elements = document.querySelectorAll('[data-i18n]');
@@ -94,3 +95,30 @@ function changeLanguage() {
         }
     });
 }
+
+// --- NOUVEAU : DÉTECTION AUTOMATIQUE ---
+function autoDetectLanguage() {
+    // 1. Récupère la langue du navigateur (ex: "fr-FR", "en-US", "es-PE")
+    const userLang = navigator.language || navigator.userLanguage;
+    
+    // 2. On ne garde que les 2 premières lettres (ex: "es-PE" devient "es")
+    let langCode = userLang.substring(0, 2).toLowerCase();
+
+    // 3. Liste des langues que votre site supporte
+    const supportedLangs = Object.keys(translations); // ['fr', 'es', 'en', 'ru', 'ar']
+
+    // 4. Si la langue détectée n'est pas dans la liste, on met le français par défaut
+    if (!supportedLangs.includes(langCode)) {
+        langCode = 'fr'; 
+    }
+
+    // 5. On met à jour le sélecteur et on applique la langue
+    const selectElement = document.getElementById('languageSelect');
+    if (selectElement) {
+        selectElement.value = langCode;
+        changeLanguage(); // Lance la traduction
+    }
+}
+
+// Lance la détection une fois que la page est chargée
+document.addEventListener('DOMContentLoaded', autoDetectLanguage);
