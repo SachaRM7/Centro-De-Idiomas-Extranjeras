@@ -91,8 +91,9 @@ header {
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     border-radius: 10px;
-    overflow: hidden;
-    margin-top: 15px; 
+    overflow: visible;
+    margin-top: -10px;
+    padding-top: 10px;
 }
 
 /* Le pont invisible pour le menu */
@@ -171,6 +172,30 @@ header {
 .card.active {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.card.active .card-header::after {
+    transform: rotate(180deg);
+}
+.card.active .card-body {
+    max-height: 500px; 
+    opacity: 1;
+    padding: 20px;
+}
+
+@media (min-width: 769px) {
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    .card:hover .card-header::after {
+        transform: rotate(180deg);
+    }
+    .card:hover .card-body {
+        max-height: 500px; 
+        opacity: 1;
+        padding: 20px;
+    }
 }
 
 .card-img { 
