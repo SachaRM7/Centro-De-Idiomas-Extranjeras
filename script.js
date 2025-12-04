@@ -1,6 +1,6 @@
 const translations = {
     fr: {
-        flag: 'fr', // Code pays pour le drapeau
+        flag: 'fr',
         title: "Centre de Langues Étrangères",
         heroTitle: "FRANÇAIS ET ANGLAIS, COMME À LA MAISON !",
         heroSubtitle: "Cours pour adultes ou jeunes avec des professeurs natifs, certifiés et professionnels.",
@@ -32,7 +32,7 @@ const translations = {
         examPrep: "PREPARA TU"
     },
     en: {
-        flag: 'gb', // Drapeau UK
+        flag: 'gb',
         title: "Foreign Language Center",
         heroTitle: "FRENCH AND ENGLISH, JUST LIKE HOME!",
         heroSubtitle: "Classes for adults or youth with native, certified, and professional teachers.",
@@ -64,7 +64,7 @@ const translations = {
         examPrep: "ПОДГОТОВЬТЕСЬ К ЭКЗАМЕНАМ"
     },
     ar: {
-        flag: 'sa', // Drapeau Arabie Saoudite
+        flag: 'sa',
         title: "مركز اللغات الأجنبية",
         heroTitle: "الفرنسية والإنجليزية، تماماً كما في المنزل!",
         heroSubtitle: "دروس للكبار والشباب مع مدرسين ناطقين أصليين ومحترفين.",
@@ -81,17 +81,15 @@ const translations = {
     }
 };
 
-// Fonction pour changer la langue (modifiée pour accepter un argument)
 function changeLanguage(langCode) {
     const elements = document.querySelectorAll('[data-i18n]');
     
     // Sécurité : si la langue n'existe pas, on met Français
     if (!translations[langCode]) langCode = 'fr';
 
-    // 1. Mise à jour du "Gros" drapeau affiché en haut
+    // 1. Mise à jour du "Gros" drapeau
     const flagImage = document.getElementById('currentFlag');
     if (flagImage) {
-        // On récupère le code drapeau (ex: 'gb' pour anglais, 'sa' pour arabe)
         const countryCode = translations[langCode].flag;
         flagImage.src = `https://flagcdn.com/h40/${countryCode}.png`;
     }
@@ -112,7 +110,6 @@ function changeLanguage(langCode) {
     });
 }
 
-// Détection automatique
 function autoDetectLanguage() {
     const userLang = navigator.language || navigator.userLanguage;
     let langCode = userLang.substring(0, 2).toLowerCase();
@@ -127,3 +124,9 @@ function autoDetectLanguage() {
 }
 
 document.addEventListener('DOMContentLoaded', autoDetectLanguage);
+
+// --- GESTION ACCORDÉON (Click) ---
+// Version simple et propre : Ouvre/Ferme la carte quand on clique dessus
+function toggleCard(element) {
+    element.classList.toggle('active');
+}
