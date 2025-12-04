@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth; /* C'est ça qui fait l'effet de glissement fluide */
+}
+
 :root {
     --primary: #009B90;
     --secondary: #1F4E79;
@@ -159,4 +163,14 @@ html[dir="rtl"] .card-header::after { margin-left: 0; margin-right: 10px; }
 @media (max-width: 768px) {
     .hero h1 { font-size: 2rem; }
     .features { margin-top: 0; }
+    .contact-item a {
+    text-decoration: none;
+    color: var(--text); /* Prend la couleur grise du texte normal */
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.contact-item a:hover {
+    color: var(--primary); /* Devient turquoise au survol */
+    text-decoration: underline;
 }
