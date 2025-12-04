@@ -1,5 +1,5 @@
 html {
-    scroll-behavior: smooth; /* Défilement fluide */
+    scroll-behavior: smooth; /* C'est ça qui fait l'effet de glissement fluide */
 }
 
 :root {
@@ -26,37 +26,37 @@ body {
 header {
     background-color: var(--secondary);
     color: var(--white);
-    padding: 0.5rem 5%;
+    padding: 0.5rem 5%; /* Padding réduit pour gagner de la place */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: nowrap; /* Empêche le retour à la ligne sur mobile */
+    /* IMPORTANT : On empêche le retour à la ligne automatique sur mobile */
+    flex-wrap: nowrap; 
     gap: 10px;
-    position: relative; /* Sécurité pour le z-index */
-    z-index: 1000;
 }
 
 .logo {
-    font-size: 1rem;
+    font-size: 1rem; /* Police plus petite sur mobile */
     font-weight: bold;
     display: flex;
     align-items: center;
     gap: 10px;
+    /* Si le texte est trop long, il reviendra à la ligne DANS son bloc, sans pousser le drapeau */
     flex: 1; 
     line-height: 1.2;
 }
 
-/* --- MENU DRAPEAUX (CORRECTION DU BUG) --- */
+/* --- MENU DRAPEAUX --- */
 .lang-menu {
     position: relative;
     display: inline-block;
     cursor: pointer;
-    z-index: 2000; /* Très haut pour passer au dessus de tout */
+    z-index: 1000;
+    /* IMPORTANT : Empêche le drapeau d'être écrasé */
     flex-shrink: 0; 
-    padding-bottom: 10px; /* Astuce : on agrandit la zone cliquable vers le bas */
 }
 
-/* Le drapeau visible */
+/* Le drapeau actuellement sélectionné */
 .selected-lang {
     display: flex;
     align-items: center;
@@ -85,29 +85,25 @@ header {
 .lang-dropdown {
     display: none;
     position: absolute;
-    top: 100%; /* Juste en dessous du menu */
+    top: 100%;
     right: 0;
     background-color: var(--white);
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     border-radius: 10px;
-    overflow: visible; /* Important pour que le pont invisible fonctionne */
-    
-    /* On rapproche la liste (10px au lieu de 15px) pour faciliter le passage */
-    margin-top: 0px; 
+    overflow: hidden;
+    margin-top: 15px; 
 }
 
-/* --- LE PONT INVISIBLE (VERSION RENFORCÉE) --- */
-/* Ce bloc transparent fait la jonction entre le bouton et la liste */
+/* Le pont invisible pour le menu */
 .lang-dropdown::before {
     content: "";
     position: absolute;
-    display: block;
-    top: -30px; /* Remonte bien haut sur le bouton */
+    top: -30px; 
     left: 0;
     width: 100%;
-    height: 40px; /* Assez épais pour couvrir tout l'espace */
-    background: transparent; /* Invisible */
+    height: 40px;
+    background: transparent;
 }
 
 .lang-menu:hover .lang-dropdown {
@@ -171,7 +167,7 @@ header {
     height: fit-content;
 }
 
-/* État actif (clic) */
+/* ICI : On utilise .active (activé par le clic JS) au lieu du hover */
 .card.active {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
@@ -185,4 +181,90 @@ header {
     flex-shrink: 0;
 }
 .img-1 { background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80'); }
-.img-2 { background-image: url('
+.img-2 { background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80'); }
+.img-3 { background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80'); }
+
+.card-header {
+    background-color: var(--primary); 
+    color: var(--white);
+    padding: 15px; 
+    text-align: center; 
+    font-weight: bold; 
+    font-size: 1.1rem;
+    min-height: 80px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.card-header::after {
+    content: '\f078'; /* Flèche bas */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    display: block;
+    margin-left: 10px;
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+}
+
+/* La flèche tourne quand la carte est active */
+.card.active .card-header::after {
+    transform: rotate(180deg);
+}
+
+.card-body { 
+    background-color: var(--white);
+    color: var(--text); 
+    max-height: 0; /* Caché par défaut */
+    opacity: 0;
+    padding: 0 20px;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Le texte s'ouvre quand la carte est active */
+.card.active .card-body {
+    max-height: 500px; 
+    opacity: 1;
+    padding: 20px;
+}
+
+/* --- ABOUT & FOOTER --- */
+.about-section { background-color: var(--secondary); color: var(--white); padding: 60px 5%; text-align: center; }
+.exam-banner {
+    background-color: var(--white); color: var(--secondary);
+    padding: 15px 30px; border-radius: 10px; display: inline-block;
+    margin-top: 30px; font-weight: bold; text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.exam-highlight { color: var(--primary); }
+
+footer { background-color: var(--white); padding: 40px 5%; text-align: center; border-top: 5px solid var(--primary); margin-top: auto; }
+.contact-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-top: 20px; }
+.contact-item { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
+.contact-item i { color: var(--primary); font-size: 1.5rem; }
+
+/* Styles des liens du footer (téléphone, email) */
+.contact-item a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.contact-item a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Support RTL (Arabe) */
+html[dir="rtl"] .contact-item { flex-direction: row-reverse; }
+html[dir="rtl"] .card-header::after { margin-left: 0; margin-right: 10px; }
+
+/* --- MEDIA QUERIES --- */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .features { margin-top: 0; }
+}
